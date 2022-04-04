@@ -1,2 +1,2 @@
 # Movie_manager
-node.js sql
+Nodejs, Express, MySQL & Express-Handlebars
