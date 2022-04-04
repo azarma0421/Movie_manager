@@ -38,13 +38,6 @@ pool.getConnection((err, Connection) => {
     console.log('Connected as ID' + Connection.threadId);
 });
 
-
-
-
-// Router
-app.get('', (req, res) => {
-    res.render('home');
-});
-
-
+const routes = require('./server/routes/movie');
+app.use("/", routes);
 app.listen(port, () => console.log(`Listening on port ${port}`));
