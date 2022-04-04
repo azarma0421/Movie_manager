@@ -1,0 +1,30 @@
+{
+    "name": "movie_manager",
+    "version": "1.0.0",
+    "description": "Nodejs, Express, MySQL & Express-Handlebars",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon app.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/azarma0421/Movie_manager.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/azarma0421/Movie_manager/issues"
+    },
+    "homepage": "https://github.com/azarma0421/Movie_manager#readme",
+    "dependencies": {
+        "body-parser": "^1.20.0",
+        "dotenv": "^16.0.0",
+        "express": "^4.17.3",
+        "express-handlebars": "^6.0.3",
+        "mysql": "^2.18.1"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.15"
+    }
+}
