@@ -138,3 +138,25 @@ exports.update = (req, res) => {
         })
     });
 }
+
+// Delete movie
+exports.delete = (req, res) => {
+    // res.render('edit-movie');
+
+    pool.getConnection((err, connection) => {
+        if (err) throw err;
+        console.log('Connected as ID' + connection.threadId);
+
+        // Use the connection
+        connection.query('DELETE FROM movie WHERE id = ?', [req.params.id], (err, rows) => {
+            // when done with connection, realease
+            connection.release();
+            if (!err) {
+                res.redirect('/');
+            } else {
+                console.log(err);
+            }
+            console.log('The data from movie table: \n', rows);
+        })
+    });
+}
