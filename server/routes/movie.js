@@ -14,7 +14,7 @@ router.get('/addmovie', movieController.form);
 router.post('/addmovie', movieController.create);
 
 router.get('/editmovie/:id', movieController.edit);
-
+router.post('/editmovie/:id', movieController.update);
 
 
 module.exports = router;

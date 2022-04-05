@@ -59,9 +59,7 @@ exports.form = (req, res) => {
 
 // Add movie
 exports.create = (req, res) => {
-
     const { name, category, date, rate, comment } = req.body;
-
     pool.getConnection((err, connection) => {
         if (err) throw err;
         console.log('Connected as ID' + connection.threadId);
@@ -83,5 +81,60 @@ exports.create = (req, res) => {
 
 // Edit movie
 exports.edit = (req, res) => {
-    res.render('edit-movie');
+    // res.render('edit-movie');
+
+    pool.getConnection((err, connection) => {
+        if (err) throw err;
+        console.log('Connected as ID' + connection.threadId);
+
+        // Use the connection
+        connection.query('SELECT  * FROM movie WHERE id = ?', [req.params.id], (err, rows) => {
+            // when done with connection, realease
+            connection.release();
+            if (!err) {
+                res.render('edit-movie', { rows });
+                // res.render('home', { alert: 'Movie added successfully.' });
+            } else {
+                console.log(err);
+            }
+            console.log('The data from movie table: \n', rows);
+        })
+    });
+}
+
+// Update movie
+exports.update = (req, res) => {
+    const { name, category, date, rate, comment } = req.body;
+
+    pool.getConnection((err, connection) => {
+        if (err) throw err;
+        console.log('Connected as ID' + connection.threadId);
+
+        // Use the connection
+        connection.query('UPDATE movie SET  name = ?, category = ?, date = ?, rate = ?, comment = ? WHERE id = ?', [name, category, date, rate, comment, req.params.id], (err, rows) => {
+            // when done with connection, realease
+            connection.release();
+            if (!err) {
+                pool.getConnection((err, connection) => {
+                    if (err) throw err;
+                    console.log('Connected as ID' + connection.threadId);
+                    // Use the connection
+                    connection.query('SELECT  * FROM movie WHERE id = ?', [req.params.id], (err, rows) => {
+                        // when done with connection, realease
+                        connection.release();
+                        if (!err) {
+                            res.render('edit-movie', { rows, alert: `${name} has been updated.` });
+                            // res.render('home', { alert: 'Movie added successfully.' });
+                        } else {
+                            console.log(err);
+                        }
+                        console.log('The data from movie table: \n', rows);
+                    })
+                });
+            } else {
+                console.log(err);
+            }
+            console.log('The data from movie table: \n', rows);
+        })
+    });
 }
