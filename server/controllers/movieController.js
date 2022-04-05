@@ -1,3 +1,4 @@
+const read = require('body-parser/lib/read');
 const mysql = require('mysql');
 
 // Connection Pool
@@ -29,7 +30,7 @@ exports.view = (req, res) => {
     });
 };
 
-// View movie by serch
+// find movie by serch
 exports.find = (req, res) => {
 
     pool.getConnection((err, connection) => {
@@ -51,3 +52,36 @@ exports.find = (req, res) => {
         })
     });
 };
+
+exports.form = (req, res) => {
+    res.render('add-movie');
+}
+
+// Add movie
+exports.create = (req, res) => {
+
+    const { name, category, date, rate, comment } = req.body;
+
+    pool.getConnection((err, connection) => {
+        if (err) throw err;
+        console.log('Connected as ID' + connection.threadId);
+
+        // Use the connection
+        connection.query('INSERT INTO movie SET name = ?, category = ?, date = ?, rate = ?, comment = ?', [name, category, date, rate, comment], (err, rows) => {
+            // when done with connection, realease
+            connection.release();
+            if (!err) {
+                res.render('add-movie', { alert: 'Movie added successfully.' });
+                // res.render('home', { alert: 'Movie added successfully.' });
+            } else {
+                console.log(err);
+            }
+            console.log('The data from movie table: \n', rows);
+        })
+    });
+}
+
+// Edit movie
+exports.edit = (req, res) => {
+    res.render('edit-movie');
+}

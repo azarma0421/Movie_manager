@@ -10,6 +10,11 @@ const movieController = require("../controllers/movieController");
 // CRUD
 router.get('/', movieController.view);
 router.post('/', movieController.find);
+router.get('/addmovie', movieController.form);
+router.post('/addmovie', movieController.create);
+
+router.get('/editmovie/:id', movieController.edit);
+
 
 
 module.exports = router;
