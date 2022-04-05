@@ -21,7 +21,8 @@ exports.view = (req, res) => {
             // when done with connection, realease
             connection.release();
             if (!err) {
-                res.render('home', { rows });
+                let removeMovie = req.query.removed;
+                res.render('home', { rows, removeMovie });
             } else {
                 console.log(err);
             }
@@ -152,7 +153,8 @@ exports.delete = (req, res) => {
             // when done with connection, realease
             connection.release();
             if (!err) {
-                res.redirect('/');
+                let removeMovie = encodeURIComponent('Movie successfully removed.');
+                res.redirect('/?removed=' + removeMovie);
             } else {
                 console.log(err);
             }
