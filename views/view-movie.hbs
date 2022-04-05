@@ -1,0 +1,49 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">View Movie</li>
+    </ol>
+</nav>
+
+<div class="view-user p-5">
+    {{#each rows}}
+    <div class="row mb-5">
+        <div class="col text-center">
+            <h3>{{this.name}}</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thread>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Rate</th>
+                    </tr>
+                </thread>
+                <tbody>
+                    <tr>
+                        <th scope="row">{{this.name}}</th>
+                        <th scope="row">{{this.category}}</th>
+                        <th scope="row">{{this.date}}</th>
+                        <th scope="row">{{this.rate}}</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <b>Comment</b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{this.comment}}
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>

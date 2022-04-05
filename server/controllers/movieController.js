@@ -160,3 +160,23 @@ exports.delete = (req, res) => {
         })
     });
 }
+
+// viewall movie
+exports.viewall = (req, res) => {
+    // Connect to DB
+    pool.getConnection((err, connection) => {
+        if (err) throw err;
+        console.log('Connected as ID' + connection.threadId);
+        // Use the connection
+        connection.query('SELECT * FROM movie WHERE id = ?', [req.params.id], (err, rows) => {
+            // when done with connection, realease
+            connection.release();
+            if (!err) {
+                res.render('view-movie', { rows });
+            } else {
+                console.log(err);
+            }
+            console.log('The data from movie table: \n', rows);
+        })
+    });
+};
